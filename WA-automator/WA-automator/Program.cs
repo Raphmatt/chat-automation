@@ -42,7 +42,7 @@ public class Program
         string name = Console.ReadLine();
         Console.WriteLine("Type the Message you want to send: ");
         string message = Console.ReadLine();
-        driver.FindElements(By.XPath($"//span[@title={name}]"));
+        driver.FindElement(By.XPath($"//span[@title={name}]")).Click();
 
         Console.ReadLine();
 
