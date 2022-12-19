@@ -42,10 +42,13 @@ public class Program
         string name = Console.ReadLine();
         Console.WriteLine("Type the Message you want to send: ");
         string message = Console.ReadLine();
-        driver.FindElement(By.XPath($"//span[@title={name}]")).Click();
+        driver.FindElement(By.XPath($"//span[@title='{name}']")).Click();
 
+        var input = driver.FindElement(By.XPath("//p[@class='selectable-text copyable-text']"));
+        input.Click();
+        input.SendKeys(message);
+        input.SendKeys(Keys.Enter);
+        
         Console.ReadLine();
-
-
     }
 }
