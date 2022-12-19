@@ -16,7 +16,7 @@ public class BrowserController
     {
         new DriverManager().SetUpDriver(new ChromeConfig(), VersionResolveStrategy.MatchingBrowser);
         _webDriver = new ChromeDriver();
-        _wait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(10));
+        _wait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(90));
     }
     
     public WebDriverWait GetWait()
