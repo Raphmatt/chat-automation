@@ -30,7 +30,7 @@ public class Program
         }
         Console.WriteLine("Getting list of people");
 
-        ReadOnlyCollection<IWebElement> elements = driver.FindElements(By.XPath("//div[@data-testid='cell-frame-container']//div/div[1]/div/span[@title]"));
+        ReadOnlyCollection<IWebElement> elements = wait.Until(driver => driver.FindElements(By.XPath("//div[@data-testid='cell-frame-container']//div/div[1]/div/span[@title]")));
         List<IWebElement> people = elements.ToList();
         Console.WriteLine("Found " + people.Count + " people");
         foreach (IWebElement e in people)
