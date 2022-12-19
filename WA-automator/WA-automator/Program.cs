@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using System.Collections.ObjectModel;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 
@@ -20,16 +21,30 @@ public class Program
 
         try
         {
-            IWebElement element = wait.Until(d => d.FindElement(By.XPath("//div[@tabindex='-1']")));
+            IWebElement element = wait.Until(driver => driver.FindElement(By.XPath("//div[@tabindex='-1']")));
         }
         catch (WebDriverTimeoutException)
         {
             Console.Error.WriteLine("Timeout of 90 Seconds succeeded");
             return;
         }
-        string name = Console.ReadLine("Name of the person to chat to");
-        string message = Console.ReadLine("what to chat");
-        driver.FindElements(By.XPath("//span[@title=]"));
+        Console.WriteLine("Getting list of people");
+
+        ReadOnlyCollection<IWebElement> elements = driver.FindElements(By.XPath("//div[@data-testid='cell-frame-container']//div/div[1]/div/span[@title]"));
+        List<IWebElement> people = elements.ToList();
+        Console.WriteLine("Found " + people.Count + " people");
+        foreach (IWebElement e in people)
+        {
+            Console.WriteLine(e.Text);
+        }
+
+        Console.WriteLine("Name of person you want to chat with: ");
+        string name = Console.ReadLine();
+        Console.WriteLine("Type the Message you want to send: ");
+        string message = Console.ReadLine();
+        driver.FindElements(By.XPath($"//span[@title={name}]"));
+
+        Console.ReadLine();
 
 
     }
