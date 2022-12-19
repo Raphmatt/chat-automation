@@ -27,9 +27,10 @@ public class Program
             Console.Error.WriteLine("Timeout of 90 Seconds succeeded");
             return;
         }
-        
-        Console.ReadLine();
-        
-        
+        string name = Console.ReadLine("Name of the person to chat to");
+        string message = Console.ReadLine("what to chat");
+        driver.FindElements(By.XPath("//span[@title=]"));
+
+
     }
 }
