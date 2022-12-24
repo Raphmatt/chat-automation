@@ -1,14 +1,18 @@
 ﻿using System.Collections.ObjectModel;
+using System.Runtime.CompilerServices;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
+// using WA_automator_logic;
 
 namespace WA_automator;
 
 public class Program
 {
-    public static void Main()
+    public static void Main() 
     {
+        
+        
         var browsercontroller = new BrowserController();
         WebDriverWait wait = browsercontroller.GetWait();
         ChromeDriver driver = browsercontroller.GetDriver();
@@ -50,5 +54,96 @@ public class Program
         input.SendKeys(Keys.Enter);
         
         Console.ReadLine();
+    }
+
+    public void Show_Contacts(WebDriverWait wait)
+    {
+        Console.WriteLine("Getting list of people");
+
+        ReadOnlyCollection<IWebElement> elements = wait.Until(driver => driver.FindElements(By.XPath("//div[@data-testid='cell-frame-container']//div/div[1]/div/span[@title]")));
+        List<IWebElement> people = elements.ToList();
+        Console.WriteLine("Found " + people.Count + " people");
+        foreach (IWebElement e in people)
+        {
+            Console.WriteLine(e.Text);
+        }
+    }
+
+    public void Send_Message(ChromeDriver driver,WebDriverWait wait)
+    {
+        Console.WriteLine("Name of person you want to chat with: ");
+        string name = Console.ReadLine();
+        Console.WriteLine("Type the Message you want to send: ");
+        string message = Console.ReadLine();
+        do
+        {
+            try
+            {
+                driver.FindElement(By.XPath($"//span[@title='{name}']")).Click();
+                break;
+            }
+            catch (Exception)
+            {
+                Console.Error.WriteLine("No such person try again");
+                Show_Contacts(wait);
+            }
+        }while (true);
+
+        var input = driver.FindElement(By.XPath("//p[@class='selectable-text copyable-text']"));
+        input.Click();
+        input.SendKeys(message);
+        input.SendKeys(Keys.Enter);
+    }
+
+    public void Send_Message_Later(ChromeDriver driver, WebDriverWait wait, DateTime sendDate)
+    {
+        Console.WriteLine("Name of person you want to chat with: ");
+        string name = Console.ReadLine();
+        Console.WriteLine("Type the Message you want to send: ");
+        string message = Console.ReadLine();
+        do
+        {
+            try
+            {
+                driver.FindElement(By.XPath($"//span[@title='{name}']")).Click();
+                break;
+            }
+            catch (Exception)
+            {
+                Console.Error.WriteLine("No such person try again");
+                Show_Contacts(wait);
+            }
+        }while (true);
+        do
+        {
+            System.Threading.Thread.Sleep(45000);
+        } while (DateTime.Now != sendDate);
+        
+        var input = driver.FindElement(By.XPath("//p[@class='selectable-text copyable-text']"));
+        input.Click();
+        input.SendKeys(message);
+        input.SendKeys(Keys.Enter);
+    }
+
+    public void Read_Message(ChromeDriver driver, WebDriverWait wait)
+    {
+        Console.WriteLine("Name of person you want to chat with: ");
+        string name = Console.ReadLine();
+        Console.WriteLine("Type the Message you want to send: ");
+        string message = Console.ReadLine();
+        do
+        {
+            try
+            {
+                driver.FindElement(By.XPath($"//span[@title='{name}']")).Click();
+                break;
+            }
+            catch (Exception)
+            {
+                Console.Error.WriteLine("No such person try again");
+                Show_Contacts(wait);
+            }
+        }while (true);
+        //read the message and safe in a list
     }
 }
