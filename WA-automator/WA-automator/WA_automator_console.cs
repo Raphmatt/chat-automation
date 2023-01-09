@@ -6,31 +6,42 @@ namespace WA_automator;
 
 public class WA_automator_console
 {
-    static void Console_Handler()
+    public static void Main()
     {
-         string command;
-        
-        navigation();
-
+        string command;
         do
         {
+            Logic logic = new Logic();
+            logic.Authenticate();
+            navigation();
             command = Console.ReadLine();
-            if (command == "?")
+            switch (command.ToLower())
             {
-                navigation();
+                case "1":
+                    Console.WriteLine("Enter the telephone number: ");
+                    string telNumber = Console.ReadLine();
+                    Console.WriteLine("Type the Message you want to send: ");
+                    string message = Console.ReadLine();
+                    Console.WriteLine("Sending Message...");
+                    
+                    new Logic().SendMessage(message, telNumber);
+                    break;
+
+                case "q":
+                    break;
+
+                default:
+                    Console.WriteLine("Such a Command is not given");
+                    Console.WriteLine("Try Again");
+                    Console.ReadLine();
+                    break;
             }
-            else
-            {
-                Executer(command);
-            }
-            Console.WriteLine("---------------------------------------");
-        
-        } while (command != "5");
+        } while (command.ToLower() != "q");
 
         Environment.Exit(0);
     }
 
-    static void navigation()
+    private static void navigation()
     {
         Console.Clear();
         Console.WriteLine(@"---------------------------------------
@@ -38,31 +49,5 @@ Please enter a command number and press enter.
 Available commands:
 1: Send a message
 q: Quit");
-    }
-
-    static void Executer(string nunbMenu)
-    {
-        var browserController = new BrowserController();
-        WebDriverWait wait = browserController.GetWait();
-        ChromeDriver driver = browserController.GetDriver();
-
-        var program = new Program();
-
-        switch (nunbMenu.ToLower())
-        {
-            case "1":
-                program.SendMessage(driver,wait);
-                break;
-            
-            case "q":
-                Environment.Exit(0);
-                break;
-            
-            default:
-                Console.WriteLine("Such a Command is not given");
-                Console.WriteLine("Try Again");
-                Console.ReadLine();
-                break;
-        }
     }
 }

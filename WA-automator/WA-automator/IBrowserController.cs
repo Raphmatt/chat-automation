@@ -1,0 +1,43 @@
+using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Support.UI;
+
+namespace WA_automator;
+
+public interface IBrowserController
+{
+    /// <summary>
+    /// Returns the current wait object
+    /// </summary>
+    /// <returns></returns>
+    public WebDriverWait GetWait();
+
+    /// <summary>
+    /// Returns the current web driver
+    /// </summary>
+    /// <returns></returns>
+    public ChromeDriver GetDriver();
+
+    /// <summary>
+    /// Opens the specified URL in the browser and waits for the page to load.
+    /// </summary>
+    /// <param name="url"></param>
+    public void OpenPage(string url);
+
+    public void GetQrCode();
+
+    /// <summary>
+    /// Checks if the user is logged in by checking if a specific element is present on the page.
+    /// </summary>
+    public void CheckAuthenticated();
+
+    /// <summary>
+    /// Opens the chat of a specified telephone number
+    /// </summary>
+    public IWebElement OpenChat(string telephoneNumber);
+
+    /// <summary>
+    /// Sends a message to the currently opened chat
+    /// </summary>
+    public IWebElement SendMessage(string message);
+}
