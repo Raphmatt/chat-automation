@@ -13,8 +13,10 @@ public class WA_automator_console
         {
             Logic logic = new Logic();
             logic.Authenticate();
-            navigation();
+            
             command = Console.ReadLine();
+            /*
+            navigation();
             switch (command.ToLower())
             {
                 case "1":
@@ -35,7 +37,7 @@ public class WA_automator_console
                     Console.WriteLine("Try Again");
                     Console.ReadLine();
                     break;
-            }
+            }*/
         } while (command.ToLower() != "q");
 
         Environment.Exit(0);
@@ -43,7 +45,7 @@ public class WA_automator_console
 
     private static void navigation()
     {
-        Console.Clear();
+        //Console.Clear();
         Console.WriteLine(@"---------------------------------------
 Please enter a command number and press enter.
 Available commands:

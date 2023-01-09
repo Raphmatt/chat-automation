@@ -1,3 +1,4 @@
+using System.Buffers.Text;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
@@ -15,7 +16,10 @@ public class BrowserController : IBrowserController
     public BrowserController()
     {
         new DriverManager().SetUpDriver(new ChromeConfig(), VersionResolveStrategy.MatchingBrowser);
-        _webDriver = new ChromeDriver();
+        
+        var options = new ChromeOptions();
+        //options.AddArguments("headless");
+        _webDriver = new ChromeDriver(options);
         _wait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(90));
         _webDriver.Manage().Window.Minimize();
     }
@@ -45,12 +49,15 @@ public class BrowserController : IBrowserController
         _wait.Until(driver => ((IJavaScriptExecutor)driver).ExecuteScript("return document.readyState").Equals("complete"));
     }
 
-    public void GetQrCode()
+    public byte[] GetQrCode()
     {
-        IWebElement canvas = _webDriver.FindElement(By.XPath("//canvas[@aria-label='Scan me!']"));
-        var canvasBase64 =
-            _webDriver.ExecuteScript("return arguments[0].toDataURL('image/png').substring(21);", canvas);
-        Console.WriteLine(canvasBase64);
+        IWebElement canvas = _wait.Until(driver => driver.FindElement(By.XPath("//canvas[@aria-label='Scan me!']")));
+        string base64 = (string)_webDriver.ExecuteScript(
+            "var canvas = arguments[0];" +
+            "var dataUrl = canvas.toDataURL('image/png');" +
+            "return dataUrl.substring(dataUrl.indexOf(',') + 1);",
+            canvas);
+        return Convert.FromBase64String(base64);
     }
     /// <summary>
     /// Checks if the user is logged in by checking if a specific element is present on the page.
@@ -72,5 +79,10 @@ public class BrowserController : IBrowserController
     public IWebElement SendMessage(string message)
     {
         return _wait.Until(driver => driver.FindElement(By.XPath("//p[@class='selectable-text copyable-text']")));
+    }
+
+    public void WaitForPageToLoad()
+    {
+        _wait.Until(driver => ((IJavaScriptExecutor)driver).ExecuteScript("return document.readyState").Equals("complete"));
     }
 }

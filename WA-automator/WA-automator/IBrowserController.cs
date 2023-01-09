@@ -24,7 +24,7 @@ public interface IBrowserController
     /// <param name="url"></param>
     public void OpenPage(string url);
 
-    public void GetQrCode();
+    public byte[] GetQrCode();
 
     /// <summary>
     /// Checks if the user is logged in by checking if a specific element is present on the page.
@@ -40,4 +40,6 @@ public interface IBrowserController
     /// Sends a message to the currently opened chat
     /// </summary>
     public IWebElement SendMessage(string message);
+
+    public void WaitForPageToLoad();
 }
