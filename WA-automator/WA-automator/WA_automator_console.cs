@@ -6,7 +6,6 @@ namespace WA_automator;
 
 public class WA_automator_console
 {
-    
     static void Console_Handler()
     {
          string command;
@@ -33,60 +32,37 @@ public class WA_automator_console
 
     static void navigation()
     {
-        Console.WriteLine("Please enter a command number and press enter.");
-            Console.WriteLine("Available commands:");
-            Console.WriteLine("1: Send Message Now");
-            Console.WriteLine("2: Send Message Later");
-            Console.WriteLine("3: Show Contacts");
-            Console.WriteLine("4: Read Message");
-            Console.WriteLine("5: Exit");
-            Console.WriteLine("?: Help");
+        Console.Clear();
+        Console.WriteLine(@"---------------------------------------
+Please enter a command number and press enter.
+Available commands:
+1: Send a message
+q: Quit");
     }
 
     static void Executer(string nunbMenu)
     {
-        var browsercontroller = new BrowserController();
-        WebDriverWait wait = browsercontroller.GetWait();
-        ChromeDriver driver = browsercontroller.GetDriver();
+        var browserController = new BrowserController();
+        WebDriverWait wait = browserController.GetWait();
+        ChromeDriver driver = browserController.GetDriver();
 
-        var reference = new Program();
+        var program = new Program();
 
-        switch (nunbMenu)
+        switch (nunbMenu.ToLower())
         {
             case "1":
-            {
-                reference.Send_Message(driver,wait);
-            }
+                program.SendMessage(driver,wait);
                 break;
             
-            case "2":
-            {
-                // has to be called with a thread
-            }
-                break;
-                
-            case "3":
-            {
-                reference.Show_Contacts(wait);
-            }
-                break;
-            
-            case "4":
-            {
-                reference.Read_Message(driver,wait);
-            }
+            case "q":
+                Environment.Exit(0);
                 break;
             
             default:
-            {
                 Console.WriteLine("Such a Command is not given");
                 Console.WriteLine("Try Again");
-            }
+                Console.ReadLine();
                 break;
         }
-        
     }
-    
-    
-    
 }
