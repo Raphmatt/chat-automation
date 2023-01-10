@@ -19,14 +19,6 @@ public interface IBrowserController
     public ChromeDriver GetDriver();
 
     /// <summary>
-    /// Opens the specified URL in the browser and waits for the page to load.
-    /// </summary>
-    /// <param name="url"></param>
-    public void OpenPage(string url);
-
-    public byte[] GetQrCode();
-
-    /// <summary>
     /// Checks if the user is logged in by checking if a specific element is present on the page.
     /// </summary>
     public void CheckAuthenticated();
@@ -40,6 +32,4 @@ public interface IBrowserController
     /// Sends a message to the currently opened chat
     /// </summary>
     public IWebElement SendMessage(string message);
-
-    public void WaitForPageToLoad();
 }

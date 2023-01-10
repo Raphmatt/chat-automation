@@ -1,4 +1,5 @@
 using System.Buffers.Text;
+using System.Drawing;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
@@ -18,9 +19,11 @@ public class BrowserController : IBrowserController
         new DriverManager().SetUpDriver(new ChromeConfig(), VersionResolveStrategy.MatchingBrowser);
         
         var options = new ChromeOptions();
-        //options.AddArguments("headless");
+        options.AddExcludedArgument("enable-automation");
+        options.AddArgument("--app=https://web.whatsapp.com");
         _webDriver = new ChromeDriver(options);
         _wait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(90));
+        _webDriver.Manage().Window.Size = new Size(0,0);
         _webDriver.Manage().Window.Minimize();
     }
     /// <summary>
@@ -40,30 +43,10 @@ public class BrowserController : IBrowserController
         return _webDriver;
     }
     /// <summary>
-    /// Opens the specified URL in the browser and waits for the page to load.
-    /// </summary>
-    /// <param name="url"></param>
-    public void OpenPage(string url)
-    {
-        _webDriver.Navigate().GoToUrl(url);
-        _wait.Until(driver => ((IJavaScriptExecutor)driver).ExecuteScript("return document.readyState").Equals("complete"));
-    }
-
-    public byte[] GetQrCode()
-    {
-        IWebElement canvas = _wait.Until(driver => driver.FindElement(By.XPath("//canvas[@aria-label='Scan me!']")));
-        string base64 = (string)_webDriver.ExecuteScript(
-            "var canvas = arguments[0];" +
-            "var dataUrl = canvas.toDataURL('image/png');" +
-            "return dataUrl.substring(dataUrl.indexOf(',') + 1);",
-            canvas);
-        return Convert.FromBase64String(base64);
-    }
-    /// <summary>
     /// Checks if the user is logged in by checking if a specific element is present on the page.
     /// </summary>
     public void CheckAuthenticated()
-    {
+    { 
         IWebElement element = _wait.Until(driver => driver.FindElement(By.XPath("//div[@tabindex='-1']")));
     }
     /// <summary>
@@ -79,10 +62,5 @@ public class BrowserController : IBrowserController
     public IWebElement SendMessage(string message)
     {
         return _wait.Until(driver => driver.FindElement(By.XPath("//p[@class='selectable-text copyable-text']")));
-    }
-
-    public void WaitForPageToLoad()
-    {
-        _wait.Until(driver => ((IJavaScriptExecutor)driver).ExecuteScript("return document.readyState").Equals("complete"));
     }
 }
