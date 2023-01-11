@@ -58,7 +58,7 @@ public class BrowserController : IBrowserController
     /// </summary>
     public void OpenChat(string telephoneNumber)
     {
-        _wait.Until(driver => driver.FindElement(By.XPath("//div[@data-testid='chat-list-search']"))).SendKeys($$"""{telephoneNumber}""" + Keys.Enter);
+        _wait.Until(driver => driver.FindElement(By.XPath("//div[@data-testid='chat-list-search']"))).SendKeys(telephoneNumber + Keys.Enter);
     }
 
     /// <summary>
