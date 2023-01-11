@@ -14,9 +14,8 @@ public class WA_automator_console
             Logic logic = new Logic();
             logic.Authenticate();
             
-            command = Console.ReadLine();
-            /*
             navigation();
+            command = Console.ReadLine();
             switch (command.ToLower())
             {
                 case "1":
@@ -37,9 +36,9 @@ public class WA_automator_console
                     Console.WriteLine("Try Again");
                     Console.ReadLine();
                     break;
-            }*/
+            }
         } while (command.ToLower() != "q");
-
+        
         Environment.Exit(0);
     }
 

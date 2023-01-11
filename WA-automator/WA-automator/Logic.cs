@@ -12,6 +12,9 @@ public class Logic
 {
     private IBrowserController _browserController;
 
+    private string localStoragePath =
+        Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "localStorage.json");
+
     public Logic()
     {
         _browserController = new BrowserController();
@@ -20,20 +23,7 @@ public class Logic
 
     public void Authenticate()
     {
-        var driver = _browserController.GetDriver();
-        driver.Manage().Window.Size = new Size(500, 400);
-        driver.Manage().Window.Position = new Point(0, 0);
-        _browserController.GetWait().Until(driver => ((IJavaScriptExecutor)driver).ExecuteScript("" +
-            "document.querySelector('.landing-main div div:nth-child(1)').style.display = 'none';" +
-            "document.querySelector('.landing-main div a').style.display = 'none';" +
-            "document.querySelector('.landing-header').style.display = 'none';" +
-            "document.querySelector('.landing-window > div:nth-child(2)').style.display = 'none';" +
-            "document.querySelector('.landing-wrapper-before').style.display = 'none';" +
-            "document.querySelector('#initial_startup').style.display = 'none';" +
-            "document.querySelector('#app').style.backgroundColor = 'white';" +
-            "return true;"));
-        _browserController.CheckAuthenticated();
-        driver.Manage().Window.Minimize();
+        _browserController.ShowQRCode();
     }
 
     public void SendMessage(string message, string telNumber)
