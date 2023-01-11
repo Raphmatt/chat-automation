@@ -30,6 +30,7 @@ public class WA_automator_console
                     break;
 
                 case "q":
+                    logic.Quit();
                     break;
 
                 default:

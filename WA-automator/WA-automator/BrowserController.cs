@@ -90,7 +90,8 @@ public class BrowserController : IBrowserController
 
     public void Abmelden()
     {
-        _wait.Until(driver => driver.FindElement(By.XPath("//p[@class='selectable-text copyable-text']"))).Click();
-        
+        _wait.Until(driver => driver.FindElement(By.XPath("//span[@data-testid='menu']"))).Click();
+        _wait.Until(driver => driver.FindElement(By.XPath("//div[@aria-label='Abmelden']"))).Click();
+        _wait.Until(driver => driver.FindElement(By.XPath("//div[@data-testid='popup-controls-ok']"))).Click();
     }
 }

@@ -31,4 +31,9 @@ public class Logic
         _browserController.OpenChat(telNumber);
         _browserController.SendMessage(message);
     }
+
+    public void Quit()
+    {
+        _browserController.Abmelden();
+    }
 }
