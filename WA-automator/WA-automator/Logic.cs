@@ -40,6 +40,6 @@ public class Logic
 
     public void Quit()
     {
-        _browserController.Abmelden();
+        _browserController.Logout();
     }
 }

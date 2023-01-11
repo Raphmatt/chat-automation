@@ -5,8 +5,9 @@ public abstract class WaAutomatorConsole
     public static void Main()
     {
         Logic logic = new Logic();
+        logic.Authenticate();
+        
         string input;
-        bool firstRun = true;
         
         do
         {
@@ -18,11 +19,6 @@ public abstract class WaAutomatorConsole
             switch (input.ToLower())
             {
                 case "1":
-                    if (firstRun)
-                    {
-                        logic.Authenticate();
-                        firstRun = false;
-                    }
                     Console.Clear();
                     Console.WriteLine("Enter the telephone number or a saved name: ");
                     var telephoneNumber = Console.ReadLine() ?? string.Empty;
@@ -50,6 +46,7 @@ public abstract class WaAutomatorConsole
             }
         } while (input.ToLower() != "q");
         
+        logic.Quit();
         Environment.Exit(0);
     }
 

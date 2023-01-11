@@ -35,5 +35,5 @@ public interface IBrowserController
 
     public void ShowQrCode();
 
-    public void Abmelden();
+    public void Logout();
 }

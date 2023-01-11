@@ -86,7 +86,7 @@ public class BrowserController : IBrowserController
             ));
     }
 
-    public void Abmelden()
+    public void Logout()
     {
         _wait.Until(driver => driver.FindElement(By.XPath("//span[@data-testid='menu']"))).Click();
         _wait.Until(driver => driver.FindElement(By.XPath("//div[@role='application']"))).SendKeys(Keys.Up+Keys.Enter);
