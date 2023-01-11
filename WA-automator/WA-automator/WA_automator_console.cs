@@ -25,7 +25,7 @@ public class WA_automator_console
                     string message = Console.ReadLine();
                     Console.WriteLine("Sending Message...");
                     
-                    new Logic().SendMessage(message, telNumber);
+                    logic.SendMessage(message, telNumber);
                     break;
 
                 case "q":
