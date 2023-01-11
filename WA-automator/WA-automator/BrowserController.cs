@@ -58,15 +58,15 @@ public class BrowserController : IBrowserController
     /// </summary>
     public void OpenChat(string telephoneNumber)
     {
-        _wait.Until(driver => driver.FindElement(By.XPath("//div[@data-testid='chat-list-search']"))).Click();
+        _wait.Until(driver => driver.FindElement(By.XPath("//div[@data-testid='chat-list-search']"))).SendKeys($$"""{telephoneNumber}""" + Keys.Enter);
     }
 
     /// <summary>
     /// Sends a message to the currently opened chat
     /// </summary>
-    public IWebElement SendMessage(string message)
+    public void SendMessage(string message)
     {
-        return _wait.Until(driver => driver.FindElement(By.XPath("//p[@class='selectable-text copyable-text']")));
+        _wait.Until(driver => driver.FindElement(By.XPath("//p[@class='selectable-text copyable-text']"))).SendKeys($$"""{telephoneNumber}""" + Keys.Enter);
     }
 
     public void ShowQRCode()

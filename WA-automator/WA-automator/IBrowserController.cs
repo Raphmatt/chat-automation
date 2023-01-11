@@ -31,7 +31,7 @@ public interface IBrowserController
     /// <summary>
     /// Sends a message to the currently opened chat
     /// </summary>
-    public IWebElement SendMessage(string message);
+    public void SendMessage(string message);
 
     void ShowQRCode();
 }
