@@ -1,19 +1,10 @@
-using System.Diagnostics;
 using System.Drawing;
-using System.Reflection;
-using System.Runtime.InteropServices;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Support.UI;
 
 namespace WA_automator;
 
 public class Logic
 {
-    private IBrowserController _browserController;
-
-    private string localStoragePath =
-        Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "localStorage.json");
+    private readonly IBrowserController _browserController;
 
     public Logic()
     {
@@ -23,13 +14,28 @@ public class Logic
 
     public void Authenticate()
     {
-        _browserController.ShowQRCode();
+        _browserController.ShowQrCode();
+        
+        var driver = _browserController.GetDriver();
+        driver.Manage().Window.Size = new Size(500, 400);
+        driver.Manage().Window.Position = new Point(0, 0);
+        
+        
+        _browserController.CheckAuthenticated();
+        driver.Manage().Window.Minimize();
     }
 
     public void SendMessage(string message, string telNumber)
     {
+        Console.Clear();
+        
+        Console.WriteLine("Opening Chat");
         _browserController.OpenChat(telNumber);
+        Console.WriteLine("Chat Opened\n");
+        
+        Console.WriteLine("Sending Message: \"" + message + "\" to " + telNumber);
         _browserController.SendMessage(message);
+        Console.WriteLine("\nMessage Sent");
     }
 
     public void Quit()

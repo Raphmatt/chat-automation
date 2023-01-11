@@ -12,8 +12,8 @@ namespace WA_automator;
 
 public class BrowserController : IBrowserController
 {
-    private ChromeDriver _webDriver;
-    private WebDriverWait _wait;
+    private readonly ChromeDriver _webDriver;
+    private readonly WebDriverWait _wait;
 
     public BrowserController()
     {
@@ -22,7 +22,6 @@ public class BrowserController : IBrowserController
         var options = new ChromeOptions();
         options.AddExcludedArgument("enable-automation");
         options.AddArgument("--app=https://web.whatsapp.com");
-        options.AddArguments("--user-data-dir=" + Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "/chromeProfile");
         _webDriver = new ChromeDriver(options);
         _wait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(90));
         _webDriver.Manage().Window.Size = new Size(0, 0);
@@ -52,7 +51,7 @@ public class BrowserController : IBrowserController
     /// </summary>
     public void CheckAuthenticated()
     {
-        IWebElement element = _wait.Until(driver => driver.FindElement(By.XPath("//div[@tabindex='-1']")));
+        _wait.Until(driver => driver.FindElement(By.XPath("//div[@tabindex='-1']"))); // add try catch here to catch timeout exception
     }
 
     /// <summary>
@@ -71,10 +70,9 @@ public class BrowserController : IBrowserController
         _wait.Until(driver => driver.FindElement(By.XPath("//p[@class='selectable-text copyable-text']"))).SendKeys(message + Keys.Enter);
     }
 
-    public void ShowQRCode()
+    public void ShowQrCode()
     {
-        _webDriver.Manage().Window.Size = new Size(500, 400);
-        _webDriver.Manage().Window.Position = new Point(0, 0);
+        _wait.Until(driver => driver.FindElement(By.Id("initial_startup")));
         _wait.Until(driver => ((IJavaScriptExecutor)driver)
             .ExecuteScript(
                 "document.querySelector('.landing-main div div:nth-child(1)').style.display = 'none';" +
@@ -86,8 +84,6 @@ public class BrowserController : IBrowserController
                 "document.querySelector('#app').style.backgroundColor = 'white';" +
                 "return true;"
             ));
-        CheckAuthenticated();
-        _webDriver.Manage().Window.Minimize();
     }
 
     public void Abmelden()
