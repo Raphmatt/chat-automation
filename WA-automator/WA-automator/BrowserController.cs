@@ -2,6 +2,7 @@ using System.Drawing;
 using System.Reflection;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.DevTools.V108.IndexedDB;
 using OpenQA.Selenium.Support.UI;
 using WebDriverManager;
 using WebDriverManager.DriverConfigs.Impl;
@@ -91,7 +92,7 @@ public class BrowserController : IBrowserController
     public void Abmelden()
     {
         _wait.Until(driver => driver.FindElement(By.XPath("//span[@data-testid='menu']"))).Click();
-        _wait.Until(driver => driver.FindElement(By.XPath("//div[@aria-label='Abmelden']"))).Click();
-        _wait.Until(driver => driver.FindElement(By.XPath("//div[@data-testid='popup-controls-ok']"))).Click();
+        _wait.Until(driver => driver.FindElement(By.XPath("//div[@role='application']"))).SendKeys(Keys.Up+Keys.Enter);
+        _wait.Until(driver => driver.FindElement(By.XPath("//div[@data-testid='popup-controls-ok']"))).SendKeys(Keys.Tab+Keys.Tab+ Keys.Enter);
     }
 }
