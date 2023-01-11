@@ -22,6 +22,7 @@ public class BrowserController : IBrowserController
         var options = new ChromeOptions();
         options.AddExcludedArgument("enable-automation");
         options.AddArgument("--app=https://web.whatsapp.com");
+        options.AddArguments("--user-data-dir=" + Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "/chromeProfile");
         _webDriver = new ChromeDriver(options);
         _wait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(90));
         _webDriver.Manage().Window.Size = new Size(0, 0);
