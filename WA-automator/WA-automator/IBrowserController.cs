@@ -1,4 +1,3 @@
-using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 
@@ -33,7 +32,13 @@ public interface IBrowserController
     /// </summary>
     public void SendMessage(string message);
 
+    /// <summary>
+    /// Hide everything on the website except the qr code
+    /// </summary>
     public void ShowQrCode();
 
+    /// <summary>
+    /// Logout from whatsapp
+    /// </summary>
     public void Logout();
 }

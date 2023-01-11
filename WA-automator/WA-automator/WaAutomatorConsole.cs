@@ -6,16 +6,15 @@ public abstract class WaAutomatorConsole
     {
         Logic logic = new Logic();
         logic.Authenticate();
-        
+
         string input;
-        
+
         do
         {
-            
             Navigation();
-            
+
             input = Console.ReadLine() ?? string.Empty;
-            
+
             switch (input.ToLower())
             {
                 case "1":
@@ -24,13 +23,14 @@ public abstract class WaAutomatorConsole
                     var telephoneNumber = Console.ReadLine() ?? string.Empty;
                     Console.WriteLine("Type the Message you want to send: ");
                     var textMessage = Console.ReadLine() ?? string.Empty;
-                    
-                    if(telephoneNumber == "" || textMessage == "")
+
+                    if (telephoneNumber == "" || textMessage == "")
                     {
                         Console.WriteLine("Please enter a valid telephone number or name and text message");
                         Console.ReadLine();
                         break;
                     }
+
                     logic.SendMessage(textMessage, telephoneNumber);
                     Console.ReadLine();
                     break;
@@ -45,7 +45,7 @@ public abstract class WaAutomatorConsole
                     break;
             }
         } while (input.ToLower() != "q");
-        
+
         logic.Quit();
         Environment.Exit(0);
     }

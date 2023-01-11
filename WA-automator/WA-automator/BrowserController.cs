@@ -1,8 +1,6 @@
 using System.Drawing;
-using System.Reflection;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.DevTools.V108.IndexedDB;
 using OpenQA.Selenium.Support.UI;
 using WebDriverManager;
 using WebDriverManager.DriverConfigs.Impl;
@@ -51,7 +49,8 @@ public class BrowserController : IBrowserController
     /// </summary>
     public void CheckAuthenticated()
     {
-        _wait.Until(driver => driver.FindElement(By.XPath("//div[@tabindex='-1']"))); // add try catch here to catch timeout exception
+        _wait.Until(driver =>
+            driver.FindElement(By.XPath("//div[@tabindex='-1']"))); // add try catch here to catch timeout exception
     }
 
     /// <summary>
@@ -59,7 +58,8 @@ public class BrowserController : IBrowserController
     /// </summary>
     public void OpenChat(string telephoneNumber)
     {
-        _wait.Until(driver => driver.FindElement(By.XPath("//div[@data-testid='chat-list-search']"))).SendKeys(telephoneNumber + Keys.Enter);
+        _wait.Until(driver => driver.FindElement(By.XPath("//div[@data-testid='chat-list-search']")))
+            .SendKeys(telephoneNumber + Keys.Enter);
     }
 
     /// <summary>
@@ -67,9 +67,13 @@ public class BrowserController : IBrowserController
     /// </summary>
     public void SendMessage(string message)
     {
-        _wait.Until(driver => driver.FindElement(By.XPath("//p[@class='selectable-text copyable-text']"))).SendKeys(message + Keys.Enter);
+        _wait.Until(driver => driver.FindElement(By.XPath("//p[@class='selectable-text copyable-text']")))
+            .SendKeys(message + Keys.Enter);
     }
 
+    /// <summary>
+    /// Hide everything on the website except the qr code
+    /// </summary>
     public void ShowQrCode()
     {
         _wait.Until(driver => driver.FindElement(By.Id("initial_startup")));
@@ -86,10 +90,15 @@ public class BrowserController : IBrowserController
             ));
     }
 
+    /// <summary>
+    /// Logout from whatsapp
+    /// </summary>
     public void Logout()
     {
         _wait.Until(driver => driver.FindElement(By.XPath("//span[@data-testid='menu']"))).Click();
-        _wait.Until(driver => driver.FindElement(By.XPath("//div[@role='application']"))).SendKeys(Keys.Up+Keys.Enter);
-        _wait.Until(driver => driver.FindElement(By.XPath("//div[@data-testid='popup-controls-ok']"))).SendKeys(Keys.Tab+Keys.Tab+ Keys.Enter);
+        _wait.Until(driver => driver.FindElement(By.XPath("//div[@role='application']")))
+            .SendKeys(Keys.Up + Keys.Enter);
+        _wait.Until(driver => driver.FindElement(By.XPath("//div[@data-testid='popup-controls-ok']")))
+            .SendKeys(Keys.Tab + Keys.Tab + Keys.Enter);
     }
 }
