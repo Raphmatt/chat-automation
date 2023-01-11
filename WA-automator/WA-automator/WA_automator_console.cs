@@ -9,10 +9,11 @@ public class WA_automator_console
     public static void Main()
     {
         string command;
+        Logic logic = new Logic();
+        logic.Authenticate();
         do
         {
-            Logic logic = new Logic();
-            logic.Authenticate();
+
             
             navigation();
             command = Console.ReadLine();

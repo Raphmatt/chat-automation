@@ -66,7 +66,7 @@ public class BrowserController : IBrowserController
     /// </summary>
     public void SendMessage(string message)
     {
-        _wait.Until(driver => driver.FindElement(By.XPath("//p[@class='selectable-text copyable-text']"))).SendKeys($$"""{telephoneNumber}""" + Keys.Enter);
+        _wait.Until(driver => driver.FindElement(By.XPath("//p[@class='selectable-text copyable-text']"))).SendKeys(message + Keys.Enter);
     }
 
     public void ShowQRCode()
@@ -86,5 +86,11 @@ public class BrowserController : IBrowserController
             ));
         CheckAuthenticated();
         _webDriver.Manage().Window.Minimize();
+    }
+
+    public void Abmelden()
+    {
+        _wait.Until(driver => driver.FindElement(By.XPath("//p[@class='selectable-text copyable-text']"))).Click();
+        
     }
 }

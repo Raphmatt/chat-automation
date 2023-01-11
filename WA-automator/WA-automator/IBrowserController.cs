@@ -33,5 +33,8 @@ public interface IBrowserController
     /// </summary>
     public void SendMessage(string message);
 
-    void ShowQRCode();
+    public void ShowQRCode();
+
+
+    public void Abmelden();
 }
