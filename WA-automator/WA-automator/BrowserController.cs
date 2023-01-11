@@ -56,9 +56,9 @@ public class BrowserController : IBrowserController
     /// <summary>
     /// Opens the chat of a specified telephone number
     /// </summary>
-    public IWebElement OpenChat(string telephoneNumber)
+    public void OpenChat(string telephoneNumber)
     {
-        return _wait.Until(driver => driver.FindElement(By.XPath("//div[@data-testid='chat-list-search']")));
+        _wait.Until(driver => driver.FindElement(By.XPath("//div[@data-testid='chat-list-search']"))).Click();
     }
 
     /// <summary>

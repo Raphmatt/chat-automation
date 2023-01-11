@@ -26,7 +26,7 @@ public interface IBrowserController
     /// <summary>
     /// Opens the chat of a specified telephone number
     /// </summary>
-    public IWebElement OpenChat(string telephoneNumber);
+    public void OpenChat(string telephoneNumber);
 
     /// <summary>
     /// Sends a message to the currently opened chat
