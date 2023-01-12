@@ -7,31 +7,18 @@ Scenario: Send messages
 	Then Function should be called
 
 Scenario: Send empty messages
-	Given the first number is 50
-	And the second number is 70
-	When the two numbers are added
-	Then the result should be 120
+	Given Arrange Mock
+	When Sending Empty message
+	Then Function should call Exception
 
 Scenario: Authentication
-	Given the first number is 50
-	And the second number is 70
-	When the two numbers are added
-	Then the result should be 120
-	
-Scenario: Send Message without tel. number
-	Given the first number is 50
-	And the second number is 70
-	When the two numbers are added
-	Then the result should be 120
-	
-Scenario: Valid tel. number
-	Given the first number is 50
-	And the second number is 70
-	When the two numbers are added
-	Then the result should be 120
-	
-Scenario: Invalid tel. number
-	Given the first number is 50
-	And the second number is 70
-	When the two numbers are added
-	Then the result should be 120
+	Given Arrange Mock
+	When  User Starts Program
+	Then Function Authenticate should be called 
+
+
+
+Scenario: Log Out
+	Given Arrange Mock
+	When User Logs Out
+	Then Log Out Function should be called
