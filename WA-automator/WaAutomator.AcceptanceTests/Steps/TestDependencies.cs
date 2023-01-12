@@ -1,7 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using SolidToken.SpecFlow.DependencyInjection;
 
-namespace WA_automator.AcceptanceTests.Steps;
+namespace WaAutomator.AcceptanceTests.Steps;
 
 public static class TestDependencies
 {

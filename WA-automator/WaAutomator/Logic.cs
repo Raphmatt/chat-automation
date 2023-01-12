@@ -1,7 +1,7 @@
 using System.Drawing;
 using System.Text.RegularExpressions;
 
-namespace WA_automator;
+namespace WaAutomator;
 
 public class Logic
 {

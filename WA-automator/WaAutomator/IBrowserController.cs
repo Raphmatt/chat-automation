@@ -2,7 +2,7 @@ using OpenQA.Selenium.Chrome;
 using System.Drawing;
 using OpenQA.Selenium.Support.UI;
 
-namespace WA_automator;
+namespace WaAutomator;
 
 public interface IBrowserController
     {

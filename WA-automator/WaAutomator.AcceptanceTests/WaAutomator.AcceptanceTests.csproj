@@ -21,7 +21,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\WA-automator\WA-automator.csproj" />
+      <ProjectReference Include="..\WaAutomator\WaAutomator.csproj" />
     </ItemGroup>
 
 </Project>

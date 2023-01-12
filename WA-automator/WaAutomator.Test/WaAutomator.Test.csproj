@@ -2,7 +2,6 @@
 
     <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
-        <RootNamespace>WA_automator.Test</RootNamespace>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
 
@@ -24,7 +23,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\WA-automator\WA-automator.csproj" />
+      <ProjectReference Include="..\WaAutomator\WaAutomator.csproj" />
     </ItemGroup>
 
 </Project>

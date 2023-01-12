@@ -4,7 +4,7 @@ using Moq;
 
 using Moq;
 
-namespace WA_automator.AcceptanceTests.Steps;
+namespace WaAutomator.AcceptanceTests.Steps;
 
 [Binding]
 public sealed class LogicSteps

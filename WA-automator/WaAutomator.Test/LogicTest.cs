@@ -1,6 +1,6 @@
 using Moq;
 
-namespace WA_automator.Test;
+namespace WaAutomator.Test;
 
 
 public class LogicTest {

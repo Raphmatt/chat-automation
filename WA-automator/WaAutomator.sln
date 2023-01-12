@@ -1,10 +1,10 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WA-automator.Test", "WA-automator.Test\WA-automator.Test.csproj", "{5E4FA858-29E9-4D30-B0DD-289129526AC6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WaAutomator.Test", "WaAutomator.Test\WaAutomator.Test.csproj", "{5E4FA858-29E9-4D30-B0DD-289129526AC6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WA-automator", "WA-automator\WA-automator.csproj", "{CFEA9FAB-C30A-41DE-AA5E-5C342A7637A6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WaAutomator", "WaAutomator\WaAutomator.csproj", "{CFEA9FAB-C30A-41DE-AA5E-5C342A7637A6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WA-automator.AcceptanceTests", "WA-automator.AcceptanceTests\WA-automator.AcceptanceTests.csproj", "{B6911EB9-9AB6-42CF-AF9A-F5C3E1459270}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WaAutomator.AcceptanceTests", "WaAutomator.AcceptanceTests\WaAutomator.AcceptanceTests.csproj", "{B6911EB9-9AB6-42CF-AF9A-F5C3E1459270}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

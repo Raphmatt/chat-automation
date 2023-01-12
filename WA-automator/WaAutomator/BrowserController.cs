@@ -6,7 +6,7 @@ using WebDriverManager;
 using WebDriverManager.DriverConfigs.Impl;
 using WebDriverManager.Helpers;
 
-namespace WA_automator;
+namespace WaAutomator;
 
 public class BrowserController : IBrowserController
 {
