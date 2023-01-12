@@ -1,4 +1,5 @@
 using OpenQA.Selenium.Chrome;
+using System.Drawing;
 using OpenQA.Selenium.Support.UI;
 
 namespace WA_automator;
@@ -41,4 +42,12 @@ public interface IBrowserController
     /// Logout from whatsapp
     /// </summary>
     public void Logout();
+
+    /// <summary>
+    /// Show and hides the Browser
+    /// </summary>
+    /// <param name="show">True to show window, false to hide</param>
+    /// <param name="size">Size of the windows (default w550, h600)</param>
+    /// <param name="position">Position of window on screen (default x0, y0)</param>
+    public void ShowBrowser(bool show, Size size = default, Point position = default);
 }

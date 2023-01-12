@@ -16,14 +16,13 @@ public class Logic
     public void Authenticate()
     {
         _browserController.ShowQrCode();
+        _browserController.ShowBrowser(true, new Size(550, 600));
 
         var driver = _browserController.GetDriver();
-        driver.Manage().Window.Size = new Size(550, 600);
-        driver.Manage().Window.Position = new Point(0, 0);
 
 
         _browserController.CheckAuthenticated();
-        driver.Manage().Window.Minimize();
+        _browserController.ShowBrowser(false);
     }
 
     public void SendMessage(string message, string telNumber)
@@ -31,15 +30,18 @@ public class Logic
         Console.Clear();
 
         Console.WriteLine("Opening Chat");
-        _browserController.OpenChat(telNumber);
-        Console.WriteLine("Chat Opened\n");
 
-        Console.WriteLine("Sending Message: \"" + message + "\" to " + telNumber);
-        
-        if(_browserController.SendMessage(message))
-            Console.WriteLine("Message Sent\n");
-        else
-            Console.WriteLine("Message Not Sent\n");
+        if (_browserController.OpenChat(telNumber))
+        {
+            Console.WriteLine("Chat Opened\n");
+            Console.WriteLine("Sending Message: \"" + message + "\" to " + telNumber);
+            if (_browserController.SendMessage(message))
+            {
+                Console.WriteLine("Message Sent\n");
+                return;
+            }
+        }
+        Console.WriteLine("Message Not Sent\n");
     }
     
     /// <summary>

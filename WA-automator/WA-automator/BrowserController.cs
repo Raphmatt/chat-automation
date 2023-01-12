@@ -59,10 +59,20 @@ public class BrowserController : IBrowserController
     /// <returns>Returns true if successfully</returns>
     public bool OpenChat(string telephoneNumber)
     {
-        _webDriver.FindElement(By.XPath("//div[@data-testid='chat-list-search']"))
-            .SendKeys(telephoneNumber + Keys.Enter);
+        var element = _webDriver.FindElement(By.XPath("//div[@data-testid='chat-list-search']"));
+        element.Click();    
+        element.SendKeys(telephoneNumber);
+        Thread.Sleep(500);
+        element.SendKeys(Keys.Enter);
         var elements = _webDriver.FindElements(By.XPath("//div[@data-testid='search-no-chats-or-contacts']"));
-        return elements.Count == 0;
+        bool result = elements.Count == 0;
+        if (!result)
+        {
+            element.Clear();
+            return result;   
+        }
+
+        return result;
     }
 
     /// <summary>
@@ -101,6 +111,8 @@ public class BrowserController : IBrowserController
                 "return true;"
             );
     }
+    
+    
 
     /// <summary>
     /// Logout from whatsapp
@@ -112,5 +124,25 @@ public class BrowserController : IBrowserController
             .SendKeys(Keys.Up + Keys.Enter);
         _wait.Until(driver => driver.FindElement(By.XPath("//div[@data-testid='popup-controls-ok']")))
             .SendKeys(Keys.Tab + Keys.Tab + Keys.Enter);
+    }
+
+    /// <summary>
+    /// Show and hides the Browser
+    /// </summary>
+    /// <param name="show">True to show window, false to hide</param>
+    /// <param name="size">Size of the windows (default w550, h600)</param>
+    /// <param name="position">Position of window on screen (default x0, y0)</param>
+    public void ShowBrowser(bool show, Size size = default, Point position = default)
+    {
+        
+        if (show)
+        {
+            _webDriver.Manage().Window.Size = size == default ? new Size(550, 600) : size;
+            _webDriver.Manage().Window.Position = position == default ? new Point(0, 0) : position;
+        }
+        else
+        {
+            _webDriver.Manage().Window.Minimize();
+        }
     }
 }
