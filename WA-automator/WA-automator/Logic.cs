@@ -9,7 +9,7 @@ public class Logic
 
     public Logic(IBrowserController browserController)
     {
-        _browserController = browserController ?? new BrowserController();
+        _browserController = browserController;
         Console.WriteLine("Page Opened");
     }
 
@@ -17,10 +17,7 @@ public class Logic
     {
         _browserController.ShowQrCode();
         _browserController.ShowBrowser(true, new Size(550, 600));
-
-        var driver = _browserController.GetDriver();
-
-
+        
         _browserController.CheckAuthenticated();
         _browserController.ShowBrowser(false);
     }
