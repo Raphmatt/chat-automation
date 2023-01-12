@@ -24,7 +24,12 @@ public class Logic
 
     public void SendMessage(string message, string telNumber)
     {
-        Console.Clear();
+        if (message == "")
+            throw new ArgumentException("Message cannot be empty");
+        if (telNumber == "")
+            throw new ArgumentException("Phone number cannot be empty");
+
+            Console.Clear();
 
         Console.WriteLine("Opening Chat");
 

@@ -103,4 +103,18 @@ public class LogicTest {
         // Assert
         browserControllerMock.Verify(b => b.ShowQrCode(), Times.Once);
     }
+
+    [Fact]
+    public void LogicQuit()
+    {
+        // Arrange
+        Mock<IBrowserController> browserControllerMock = new Mock<IBrowserController>();
+        Logic logic = new Logic(browserControllerMock.Object);
+        
+        // Act
+        logic.Quit();
+        
+        // Assert
+        browserControllerMock.Verify(b => b.Logout(), Times.Once);
+    }
 }
