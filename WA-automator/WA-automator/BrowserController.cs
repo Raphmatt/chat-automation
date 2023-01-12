@@ -58,17 +58,34 @@ public class BrowserController : IBrowserController
     /// </summary>
     public void OpenChat(string telephoneNumber)
     {
-        _wait.Until(driver => driver.FindElement(By.XPath("//div[@data-testid='chat-list-search']")))
-            .SendKeys(telephoneNumber + Keys.Enter);
+        try
+        {
+            _webDriver.FindElement(By.XPath("//div[@data-testid='chat-list-search']"))
+                .SendKeys(telephoneNumber + Keys.Enter);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }
 
     /// <summary>
     /// Sends a message to the currently opened chat
     /// </summary>
-    public void SendMessage(string message)
+    /// <returns>If the message was sent successfully</returns>
+    public bool SendMessage(string message)
     {
-        _wait.Until(driver => driver.FindElement(By.XPath("//p[@class='selectable-text copyable-text']")))
-            .SendKeys(message + Keys.Enter);
+        try
+        {
+            _wait.Until(driver => driver.FindElement(By.XPath("//p[@class='selectable-text copyable-text']")))
+                .SendKeys(message + Keys.Enter);
+            return true;
+        }
+        catch (Exception e)
+        {
+            return false;
+        }
     }
 
     /// <summary>
@@ -76,18 +93,28 @@ public class BrowserController : IBrowserController
     /// </summary>
     public void ShowQrCode()
     {
-        _wait.Until(driver => driver.FindElement(By.Id("initial_startup")));
-        _wait.Until(driver => ((IJavaScriptExecutor)driver)
-            .ExecuteScript(
-                "document.querySelector('.landing-main div div:nth-child(1)').style.display = 'none';" +
-                "document.querySelector('.landing-main div a').style.display = 'none';" +
-                "document.querySelector('.landing-header').style.display = 'none';" +
-                "document.querySelector('.landing-window > div:nth-child(2)').style.display = 'none';" +
-                "document.querySelector('.landing-wrapper-before').style.display = 'none';" +
-                "document.querySelector('#initial_startup').style.display = 'none';" +
-                "document.querySelector('#app').style.backgroundColor = 'white';" +
-                "return true;"
-            ));
+        try
+        {
+            // wait for qr code to be visible
+            _wait.Until(driver => driver.FindElement(By.XPath("//canvas")));
+            
+            // hide everything except the qr code
+            _wait.Until(driver => ((IJavaScriptExecutor)driver) 
+                .ExecuteScript(
+                    "document.querySelector('div.landing-window > div:nth-child(2)').style.display = 'none';" +
+                    "document.querySelector('a').style.display = 'none';" +
+                    "document.querySelector('div.landing-header').style.display = 'none';" +
+                    "document.querySelector('div.landing-wrapper-before').style.display = 'none';" +
+                    "document.querySelector('#initial_startup').style.display = 'none';" +
+                    "document.querySelector('#app').style.backgroundColor = 'white';" +
+                    "return true;"
+                ));
+        }
+        catch (Exception e)
+        {
+            
+        }
+
     }
 
     /// <summary>

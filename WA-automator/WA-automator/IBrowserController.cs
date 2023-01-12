@@ -4,7 +4,7 @@ using OpenQA.Selenium.Support.UI;
 namespace WA_automator;
 
 public interface IBrowserController
-{
+    {
     /// <summary>
     /// Returns the current wait object
     /// </summary>
@@ -30,7 +30,7 @@ public interface IBrowserController
     /// <summary>
     /// Sends a message to the currently opened chat
     /// </summary>
-    public void SendMessage(string message);
+    public bool SendMessage(string message);
 
     /// <summary>
     /// Hide everything on the website except the qr code
