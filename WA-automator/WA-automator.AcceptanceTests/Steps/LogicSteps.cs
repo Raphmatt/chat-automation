@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium.DevTools.V85.Target;
+﻿using Moq;
+using OpenQA.Selenium.DevTools.V85.Target;
 
 namespace WA_automator.AcceptanceTests.Steps;
 
@@ -7,6 +8,7 @@ public sealed class LogicSteps
 {
     private readonly IBrowserController _browserController;
     private string msg;
+    private Mock browserControllerMock;
     
 
     public LogicSteps(ScenarioContext scenarioContext, IBrowserController browserController)
@@ -23,7 +25,8 @@ public sealed class LogicSteps
     [Given(@"Build mock for message")]
     public void GivenBuildMockForMessage()
     {
-        this.Mock = new Mock<IBrowserController>(); 
+        browserControllerMock = new Mock<IBrowserController>();
+        browserControllerMock.Setup(_ => _.SendMessage(msg)).Returns(true);
     }
 
     [When(@"Sending message")]
