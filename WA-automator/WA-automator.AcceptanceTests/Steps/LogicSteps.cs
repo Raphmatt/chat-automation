@@ -30,18 +30,20 @@ public sealed class LogicSteps
     {
         browserControllerMock = new Mock<IBrowserController>();
         browserControllerMock.Setup(b => b.SendMessage(It.IsAny<string>())).Returns(true);
+        browserControllerMock.Setup(b => b.OpenChat(It.IsAny<string>())).Returns(true);
     }
 
     [When(@"Sending message")]
     public void WhenSendingMessage()
     {
-        _browserController.SendMessage(msg);
+        var logic = new Logic(browserControllerMock.Object);
+        logic.SendMessage("+41345678907", "Hello World");
     }
 
     [Then(@"Function should be called")]
     public void ThenFunctionShouldBeCaled()
     {
-        
+        browserControllerMock.Verify(b => b.SendMessage(It.IsAny<string>()), Times.Once);
     }
     
 }
