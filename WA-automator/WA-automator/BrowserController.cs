@@ -56,36 +56,30 @@ public class BrowserController : IBrowserController
     /// <summary>
     /// Opens the chat of a specified telephone number
     /// </summary>
-    public void OpenChat(string telephoneNumber)
+    /// <returns>Returns true if successfully</returns>
+    public bool OpenChat(string telephoneNumber)
     {
-        try
-        {
-            _webDriver.FindElement(By.XPath("//div[@data-testid='chat-list-search']"))
-                .SendKeys(telephoneNumber + Keys.Enter);
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-            throw;
-        }
+        _webDriver.FindElement(By.XPath("//div[@data-testid='chat-list-search']"))
+            .SendKeys(telephoneNumber + Keys.Enter);
+        var elements = _webDriver.FindElements(By.XPath("//div[@data-testid='search-no-chats-or-contacts']"));
+        return elements.Count == 0;
     }
 
     /// <summary>
     /// Sends a message to the currently opened chat
     /// </summary>
-    /// <returns>If the message was sent successfully</returns>
+    /// <returns>Returns true if successfully</returns>
     public bool SendMessage(string message)
     {
-        try
+        var messageInput = "//p[@class='selectable-text copyable-text']";
+        var elements = _webDriver.FindElements(By.XPath(messageInput));
+        if (elements.Count > 0)
         {
-            _wait.Until(driver => driver.FindElement(By.XPath("//p[@class='selectable-text copyable-text']")))
-                .SendKeys(message + Keys.Enter);
+            elements.First().SendKeys(message + Keys.Enter);
             return true;
         }
-        catch (Exception e)
-        {
-            return false;
-        }
+
+        return false;
     }
 
     /// <summary>
@@ -93,28 +87,19 @@ public class BrowserController : IBrowserController
     /// </summary>
     public void ShowQrCode()
     {
-        try
-        {
-            // wait for qr code to be visible
-            _wait.Until(driver => driver.FindElement(By.XPath("//canvas")));
-            
-            // hide everything except the qr code
-            _wait.Until(driver => ((IJavaScriptExecutor)driver) 
-                .ExecuteScript(
-                    "document.querySelector('div.landing-window > div:nth-child(2)').style.display = 'none';" +
-                    "document.querySelector('a').style.display = 'none';" +
-                    "document.querySelector('div.landing-header').style.display = 'none';" +
-                    "document.querySelector('div.landing-wrapper-before').style.display = 'none';" +
-                    "document.querySelector('#initial_startup').style.display = 'none';" +
-                    "document.querySelector('#app').style.backgroundColor = 'white';" +
-                    "return true;"
-                ));
-        }
-        catch (Exception e)
-        {
-            
-        }
+        new WebDriverWait(_webDriver, TimeSpan.FromSeconds(10)).Until(
+            driver => driver.FindElements(By.XPath("//canvas")).Count > 0);
 
+        ((IJavaScriptExecutor)_webDriver)
+            .ExecuteScript(
+                "document.querySelector('div.landing-window > div:nth-child(2)').style.display = 'none';" +
+                "document.querySelector('a').style.display = 'none';" +
+                "document.querySelector('div.landing-header').style.display = 'none';" +
+                "document.querySelector('div.landing-wrapper-before').style.display = 'none';" +
+                "document.querySelector('#initial_startup').style.display = 'none';" +
+                "document.querySelector('#app').style.backgroundColor = 'white';" +
+                "return true;"
+            );
     }
 
     /// <summary>
